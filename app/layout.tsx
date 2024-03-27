@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "@/components/providers/themeProvider";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -18,8 +19,12 @@ export default function RootLayout({
   return (
     /** Mount Clerk provider here */
     <ClerkProvider>
-      <html lang="en">
-        <body className={font.className}>{children}</body>
+      <html lang="en" suppressHydrationWarning>
+        <body className={font.className}>
+            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} storageKey="harmonyDark">
+              {children}
+            </ThemeProvider>
+        </body>
       </html>
     </ClerkProvider>
   );
