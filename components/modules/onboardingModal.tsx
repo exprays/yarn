@@ -10,6 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
 
 // schema
 const formSchema = z.object({
@@ -22,6 +23,14 @@ const formSchema = z.object({
 })
 
 export const OnboardingModal = () => {
+
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+    
+    
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -36,6 +45,11 @@ export const OnboardingModal = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         console.log(values);
+    }
+
+    // removes hydration
+    if (!isMounted) {
+        return null;
     }
 
     return ( 
