@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { initProfile } from "@/utils/initProfile";
 import { redirect } from "next/navigation";
+import { OnboardingModal } from "@/components/modules/onboardingModal"
 
 const OnboardingPage = async () => {
     const profile = await initProfile();
@@ -21,7 +22,7 @@ const OnboardingPage = async () => {
 
     return ( 
         <div>
-            Create a Server
+            <OnboardingModal />
         </div>
      );
 }
