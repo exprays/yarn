@@ -19,10 +19,14 @@ export const NavigationItem = ({
     const params = useParams();
     const router = useRouter();
 
+    const onClick = () => {
+        router.push(`/servers/${id}`)
+    }
+
     return (
         <ActionTooltip side="right" align="center" label={name}>
             <button
-                onClick={() => {}}
+                onClick={onClick}
                 className="group relative flex items-center"
             >
                 {/**dynamic button checking for if inside the server or not */}
