@@ -6,6 +6,7 @@ import { OnboardingModal } from "@/components/modules/onboardingModal"
 const OnboardingPage = async () => {
     const profile = await initProfile();
 
+    // finds if any server is present or not
     const server =  await db.server.findFirst({
         where: {
             members: {
