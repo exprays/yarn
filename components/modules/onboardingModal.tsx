@@ -2,7 +2,8 @@
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";      
+import { useForm } from "react-hook-form";
+import axios from "axios";      
 
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
@@ -12,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { FileUpload } from "../fileUpload";
+import { useRouter } from "next/navigation";
 
 // schema
 const formSchema = z.object({
@@ -26,6 +28,8 @@ const formSchema = z.object({
 export const OnboardingModal = () => {
 
     const [isMounted, setIsMounted] = useState(false);
+
+    const router = useRouter();
 
     useEffect(() => {
         setIsMounted(true);
@@ -45,7 +49,17 @@ export const OnboardingModal = () => {
     const isLoading = form.formState.isSubmitting;
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values);
+        try {
+            await axios.post("/api/servers", values);
+
+            //refresh the viewport
+            form.reset();
+            router.refresh();
+            window.location.reload();
+            
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     // removes hydration
