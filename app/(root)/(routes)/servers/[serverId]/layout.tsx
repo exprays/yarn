@@ -1,3 +1,4 @@
+import { ServerSidebar } from "@/components/elements/server/sidebar";
 import { db } from "@/lib/db";
 import { currentProfile } from "@/utils/currentProfile";
 import { redirectToSignIn } from "@clerk/nextjs";
@@ -35,7 +36,7 @@ const ServerIdPageLayout = async ({
     return ( 
         <div className="h-full">
             <div className="hidden md:flex h-full w-60 z-20 flex-col fixed inset-y-0">
-                Server sidebar
+                <ServerSidebar serverId={params.serverId} />
             </div>
             <main className="h-full md:pl-60">
                 {children}
