@@ -6,6 +6,14 @@ import { useModal } from "@/hooks/useModalStore";
 import { ServerTypes } from "@/types/serverTypes";
 import { ScrollArea } from "../ui/scroll-area";
 import { UserAvatar } from "../userAvatar";
+import { ShieldAlert, ShieldCheck } from "lucide-react";
+
+//role-Icons
+const roleIconMap = {
+    "GUEST": null,
+    "MODERATOR": <ShieldCheck className="h-4 w-4 ml-2 text-indigo-600"/>,
+    "ADMIN": <ShieldAlert className="h-4 w-4 ml-2 text-rose-600"/>
+}
 
 export const MembersModal = () => {
 
@@ -34,6 +42,7 @@ export const MembersModal = () => {
                             <div className="flex flex-col gap-y-1">
                                 <div className="text-xs font-semibold flex items-center">
                                     {member.profile.name}
+                                    {roleIconMap[member.role]}
                                 </div>
                             </div>
                         </div>
