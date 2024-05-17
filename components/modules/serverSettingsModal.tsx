@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { FileUpload } from "../fileUpload";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/useModalStore";
+import { useEffect } from "react";
 
 // schema
 const formSchema = z.object({
@@ -28,9 +29,10 @@ const formSchema = z.object({
 export const ServerSettingsModal = () => {
 
     const router = useRouter();
-    const { isOpen, onClose, type } = useModal();
+    const { isOpen, onClose, type, data } = useModal();
     
     const isModalOpen = isOpen && type === "serverSetting";
+    const { server } = data;
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -38,14 +40,21 @@ export const ServerSettingsModal = () => {
             name: "",
             imageUrl: "",
         }
-    })
+    });
+
+    useEffect(() => {
+        if(server) {
+            form.setValue("name", server.name);
+            form.setValue("imageUrl", server.imageUrl);
+        }
+    }, [server, form]);
 
     // disabled input while submitting information
     const isLoading = form.formState.isSubmitting;
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            await axios.post("/api/servers", values);
+            await axios.patch(`/api/servers/${server?.id}`, values);
 
             //refresh the viewport
             form.reset();
@@ -105,7 +114,7 @@ export const ServerSettingsModal = () => {
                         </div>
                         <DialogFooter className="bg-gray-100 px-6 py-4">
                             <Button variant="harmony">
-                                Create
+                                Save
                             </Button> 
                         </DialogFooter>
                     </form>
