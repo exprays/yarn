@@ -76,7 +76,7 @@ export const ServerSettingsModal = () => {
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-center font-bold text-black text-2xl">
-                        Create your server
+                        Edit your server
                     </DialogTitle>
                     <DialogDescription className="text-center text-zinc-500">
                         Give your server a harmony with a name and an image. You can always change it later!
