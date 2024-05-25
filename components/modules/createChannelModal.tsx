@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
 import { useModal } from "@/hooks/useModalStore";
 import { ChannelType } from "@prisma/client";
+import { useEffect } from "react";
 
 // schema
 const formSchema = z.object({
@@ -34,8 +35,10 @@ const formSchema = z.object({
 export const CreateChannelModal = () => {
 
     const router = useRouter();
-    const { isOpen, onClose, type } = useModal();
+    const { isOpen, onClose, type, data } = useModal();
     const params = useParams();
+
+    const { channelType } = data;
     
     const isModalOpen = isOpen && type === "createChannel";
 
@@ -43,9 +46,19 @@ export const CreateChannelModal = () => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            type: ChannelType.TEXT,
+            type: channelType || ChannelType.TEXT,
         }
-    })
+    });
+
+    // default channel while clicking respective add channel buttons ( + )
+    useEffect(() => {
+        if(channelType) {
+            form.setValue("type", channelType);
+        } else {
+            form.setValue("type", ChannelType.TEXT);
+        }
+    }, [channelType, form]);
+
 
     // disabled input while submitting information
     const isLoading = form.formState.isSubmitting;
