@@ -62,6 +62,12 @@ model Member {
     serverId String
     server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
 
+    messages Message[]
+    directMessages DirectMessage[]
+
+    conversationsStarted Conversation[] @relation("MemberAlpha")
+    conversationsReceived Conversation[] @relation("MemberBeta")
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
@@ -86,9 +92,69 @@ model Channel {
     serverId String
     server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
 
+    messages Message[]
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
     @@index([serverId])
     @@index([profileId])
+}
+
+model Message {
+    id String @id @default(uuid())
+    content String @db.Text
+
+    fileUrl String? @db.Text
+
+    memberId String
+    member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+    channelId String
+    channel Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+    deleted Boolean @default(false)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([channelId])
+    @@index([memberId])
+}
+
+model Conversation {
+    id String @id @default(uuid())
+
+    memberAlphaId String
+    memberAlpha Member @relation("MemberAlpha", fields: [memberAlphaId], references: [id], onDelete: Cascade)
+
+    memberBetaId String
+    memberBeta Member @relation("MemberBeta", fields: [memberBetaId], references: [id], onDelete: Cascade)
+
+    directMessages DirectMessage[]
+
+    @@index([memberAlphaId])
+    @@index([memberBetaId])
+
+    @@unique([memberAlphaId, memberBetaId])
+}
+
+model DirectMessage {
+    id String @id @default(uuid())
+    content String @db.Text
+    fileUrl String? @db.Text
+
+    memberId String
+    member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+    conversationId String
+    conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+    deleted Boolean @default(false)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([memberId])
+    @@index([conversationId])
 }
