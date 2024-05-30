@@ -101,7 +101,11 @@ export default async function handler(
             }
         });
 
-        
+        //channelkey 1.0
+        //emit socketIO to all active connections
+        const channelKey = `chat:${channelId}:messages`;
+
+        res?.socket?.server?.io?.emit(channelKey, message);
 
         return res.status(200).json(message);
 
