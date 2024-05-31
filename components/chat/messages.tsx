@@ -33,8 +33,8 @@ export const ChatMessages = ({
     const addKey = `chat:${chatId}:messages`;
     const updateKey = `chat:${chatId}:messages:update`;
 
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status} = useChatQuery({ queryKey, apiUrl, paramKey, paramValue });
-
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status} = useChatQuery({ queryKey, apiUrl, paramKey, paramValue }); 
+    
     useChatSocket({ queryKey, addKey, updateKey });
 
     if (status === "pending") {
