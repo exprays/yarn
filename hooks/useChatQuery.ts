@@ -28,8 +28,8 @@ export const useChatQuery = ({
             }
         }, { skipNull: true });
 
-        const response = await fetch(url);
-        return response.json();
+        const res = await fetch(url);
+        return res.json();
     };
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteQuery({
