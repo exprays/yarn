@@ -9,6 +9,7 @@ import { useChatQuery } from "@/hooks/useChatQuery";
 import { MessageTypes } from "@/types/messageType";
 import { ChatWelcome } from "./welcome";
 import { ChatItem } from "./chatItem";
+import { useChatSocket } from "@/hooks/useChatSocket";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -29,8 +30,12 @@ export const ChatMessages = ({
 }: ChatMessagesProps) => {
 
     const queryKey = `chat:${chatId}`;
+    const addKey = `chat:${chatId}:messages`;
+    const updateKey = `chat:${chatId}:messages:update`;
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status} = useChatQuery({ queryKey, apiUrl, paramKey, paramValue });
+
+    useChatSocket({ queryKey, addKey, updateKey });
 
     if (status === "pending") {
         return (
