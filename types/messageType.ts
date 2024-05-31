@@ -7,3 +7,8 @@ export type MessageTypes = Message & {
         profile: Profile
     }
 }
+
+//Member with Profile
+export type MemberXProfile = Member & {
+    profile: Profile;
+}
