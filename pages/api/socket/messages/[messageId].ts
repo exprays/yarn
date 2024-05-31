@@ -25,6 +25,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseX
             });
         }
 
+        if (!messageId || !serverId || !channelId || (req.method === "PATCH" && !content)) {
+            console.log("Missing parameters", { messageId, serverId, channelId, content });
+            return res.status(400).json({ error: "Missing required parameters" });
+        }
+
         if(!serverId) {
             return res.status(400).json({
                 error: "Server ID missing"
@@ -43,6 +48,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseX
             });
         }
 
+        //retrieve server
         const server = await db.server.findFirst({
             where: {
                 id: serverId as string,
@@ -63,6 +69,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseX
             });
         }
 
+        //retreive channel
         const channel = await db.channel.findFirst({
             where: {
                 id: channelId as string,
@@ -116,6 +123,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseX
         };
 
         if(req.method === "DELETE") {
+            
             message = await db.message.update({
                 where: {
                     id: messageId as string,
