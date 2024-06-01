@@ -42,12 +42,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseX
             });
         }
 
-        if(!content) {
-            return res.status(400).json({
-                error: "Content missing"
-            });
-        }
-
         //retrieve server
         const server = await db.server.findFirst({
             where: {
@@ -144,6 +138,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseX
         }
 
         if(req.method === "PATCH") {
+
+            if(!content) {
+                return res.status(400).json({
+                    error: "Content missing"
+                });
+            }
 
             if(!isMessageOwner) {
                 return res.status(401).json({ error: "Unauthorized!" })
