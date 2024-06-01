@@ -22,14 +22,12 @@ export const DeleteMessageModal = () => {
     const onClick = async () => {
         try {
             setIsLoading(true);
-
-            const url = qs.stringifyUrl({
-               url: apiUrl || "",
-               query: query
-            })
-
-            await axios.delete(url);
-
+    
+            // Ensure query is defined, defaulting to an empty object if it's undefined
+            const fullUrl = `${apiUrl}?${qs.stringify(query || {})}`;
+    
+            await axios.delete(fullUrl);
+    
             onClose();
             
         } catch (error) {
@@ -38,6 +36,7 @@ export const DeleteMessageModal = () => {
             setIsLoading(false);
         }
     }
+    
 
     return ( 
         <Dialog open={isModalOpen} onOpenChange={onClose}>

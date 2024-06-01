@@ -19,6 +19,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseX
         const { directMessageId, conversationId } = req.query;
         const { content } = req.body;
 
+        // Extract directMessageId and conversationId from the URL query
+        const messageId = directMessageId as string;
+        const convId = conversationId as string;
+
         if(!profile) {
             return res.status(401).json({
                 error: "Unauthorized"
@@ -28,12 +32,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseX
         if(!conversationId) {
             return res.status(400).json({
                 error: "Conversation ID missing"
-            });
-        }
-
-        if(!content) {
-            return res.status(400).json({
-                error: "Content missing"
             });
         }
 
@@ -119,7 +117,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseX
                     id: directMessageId as string,
                 },
                 data: {
-                    fileUrl: null,
+                    fileUrl: null || "",
                     content: "This message has been deleted.", //soft-delete
                     deleted: true,
                 },
@@ -134,6 +132,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseX
         }
 
         if(req.method === "PATCH") {
+
+            if(!content) {
+                return res.status(400).json({
+                    error: "Content missing"
+                });
+            }
 
             if(!isMessageOwner) {
                 return res.status(401).json({ error: "Unauthorized!" })
