@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient, QueryClient } from "@tanstack/react-query";
 import { Member, Message, Profile } from "@prisma/client";
 
 import { useSocket } from "@/components/providers/socketProvider";
@@ -24,66 +24,56 @@ export const useChatSocket = ({
   const { socket } = useSocket();
   const queryClient = useQueryClient();
 
-  useEffect(() => {
-    if (!socket) {
-      return;
-    }
-
-    socket.on(updateKey, (message: MessageWithMemberWithProfile) => {
-      queryClient.setQueryData([queryKey], (oldData: any) => {
-        if (!oldData || !oldData.pages || oldData.pages.length === 0) {
-          return oldData;
-        }
-
-        const newData = oldData.pages.map((page: any) => {
-          return {
-            ...page,
-            items: page.items.map((item: MessageWithMemberWithProfile) => {
-              if (item.id === message.id) {
-                return message;
-              }
-              return item;
-            })
-          }
-        });
-
+  const updateQueryData = (queryClient: QueryClient, queryKey: string, message: MessageWithMemberWithProfile, isNew: boolean) => {
+    queryClient.setQueryData([queryKey], (oldData: any) => {
+      if (!oldData || !oldData.pages) {
         return {
-          ...oldData,
-          pages: newData,
-        }
-      })
-    });
-
-    socket.on(addKey, (message: MessageWithMemberWithProfile) => {
-      queryClient.setQueryData([queryKey], (oldData: any) => {
-        if (!oldData || !oldData.pages || oldData.pages.length === 0) {
-          return {
-            pages: [{
-              items: [message],
-            }]
-          }
-        }
-
-        const newData = [...oldData.pages];
-
-        newData[0] = {
-          ...newData[0],
-          items: [
-            message,
-            ...newData[0].items,
-          ]
+          pages: [{
+            items: [message],
+          }],
+          pageParams: [undefined],
         };
+      }
 
+      const newData = oldData.pages.map((page: any) => {
         return {
-          ...oldData,
-          pages: newData,
+          ...page,
+          items: isNew
+            ? [message, ...page.items]
+            : page.items.map((item: MessageWithMemberWithProfile) =>
+                item.id === message.id ? message : item
+              )
         };
       });
+
+      if (isNew && newData[0] && !newData[0].items.some((item: MessageWithMemberWithProfile) => item.id === message.id)) {
+        newData[0].items.unshift(message);
+      }
+
+      return {
+        ...oldData,
+        pages: newData,
+      };
     });
+  };
+
+  useEffect(() => {
+    if (!socket) return;
+
+    const handleUpdate = (message: MessageWithMemberWithProfile) => {
+      updateQueryData(queryClient, queryKey, message, false);
+    };
+
+    const handleAdd = (message: MessageWithMemberWithProfile) => {
+      updateQueryData(queryClient, queryKey, message, true);
+    };
+
+    socket.on(updateKey, handleUpdate);
+    socket.on(addKey, handleAdd);
 
     return () => {
-      socket.off(addKey);
-      socket.off(updateKey);
-    }
-  }, [queryClient, addKey, queryKey, socket, updateKey]);
-}
+      socket.off(updateKey, handleUpdate);
+      socket.off(addKey, handleAdd);
+    };
+  }, [socket, queryClient, addKey, updateKey, queryKey]);
+};
