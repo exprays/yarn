@@ -138,4 +138,4 @@ For support, email suryakantsubudhi@protonmail.com or join our Discord channel.
 
 ## Feedback
 
-If you have any feedback, please reach out to us at @gearxlab
+If you have any feedback, please reach out  at @rayxdev on x.com
