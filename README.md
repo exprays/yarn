@@ -1,7 +1,7 @@
+![harmony-wordmark](https://github.com/fxso/Harmony/assets/133385746/ca592d3c-9c11-4dcc-9b0d-04b7d31f8d56)
 
-# Harmony
 
-A Full-stack Discord clone built using NextJS 14! This is the project which I built to learn WebSockets and how it is used in a real world application.
+A Full-stack OpenSource Discord clone built using NextJS 14! This is the project which I built to learn WebSockets and how it is used in a real world application.
 
 
 ## Features
@@ -142,4 +142,4 @@ For support, email suryakantsubudhi@protonmail.com or join our Discord channel.
 
 ## Feedback
 
-If you have any feedback, please reach out to us at @gearxlab
+If you have any feedback, please reach out  at @rayxdev on x.com
