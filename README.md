@@ -39,6 +39,10 @@ A Full-stack Discord clone built using NextJS 14! This is the project which I bu
 - **Aiven:** MySQL database hosting
 
 
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white) ![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white) ![Radix UI](https://img.shields.io/badge/radix%20ui-161618.svg?style=for-the-badge&logo=radix-ui&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white) ![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101) ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+
+
+
 
 ## Run Locally
 
@@ -123,7 +127,7 @@ npm run deploy
 ```
 
 ### Info!
-Please note that Vercel does not support WebSockets due to the time limit in edge function execution. So this project will work on polling on vercel due to absence of websockets. If you want to use the WebSockets feature then you can deploy it on AWS etc. or managed servers like Render.comor fly.io!
+Please note that Vercel does not support WebSockets due to the time limit in edge function execution. So this project will work on polling on vercel due to absence of websockets. If you want to use the WebSockets feature then you can deploy it on AWS etc. or managed servers like Render.com or fly.io!
 
 
 ## Support
