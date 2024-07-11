@@ -3,6 +3,9 @@
 
 A Full-stack OpenSource Discord clone built using NextJS 14! This is the project which I built to learn WebSockets and how it is used in a real world application.
 
+> [!WARNING]  
+> As it is deployed on a free version of render, it takes some time to load the app. I am planning to migrate it to heroku soon. So stay tuned!
+
 
 ## Features
 
