@@ -11,7 +11,7 @@ import { QueryProvider } from "@/components/providers/queryProvider";
 const font = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Harmony",
+  title: "Yarn",
   description: "Have something to do together!",
 };
 
