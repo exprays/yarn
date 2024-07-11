@@ -124,7 +124,7 @@ export const CreateChannelModal = () => {
                                 name="type"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>
+                                        <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
                                             Channel Type
                                         </FormLabel>
                                         <Select disabled={isLoading} onValueChange={field.onChange} defaultValue={field.value}>
