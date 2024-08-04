@@ -1,10 +1,8 @@
-![harmony-wordmark](https://github.com/fxso/Harmony/assets/133385746/ca592d3c-9c11-4dcc-9b0d-04b7d31f8d56)
-
 
 A Full-stack OpenSource Discord clone built using NextJS 14! This is the project which I built to learn WebSockets and how it is used in a real world application.
 
 > [!WARNING]  
-> As it is deployed on a free version of render, it takes some time to load the app. I am planning to migrate it to heroku soon. So stay tuned!
+> As it is deployed on vercel which is a serverless deployment platform sockets may or may not work due to the time limit o the function execution. But still the messaging will work due to polling.
 
 
 ## Features
