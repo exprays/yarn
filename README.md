@@ -82,10 +82,10 @@ To run this project, you will need to add the following environment variables to
 
 `CLERK_SECRET_KEY=`
 
-`NEXT_PUBLIC_CLERK_SIGN_IN_URL=/secure/sign-in
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=/secure/sign-up
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/`
+`NEXT_PUBLIC_CLERK_SIGN_IN_URL=/secure/sign-in`
+`NEXT_PUBLIC_CLERK_SIGN_UP_URL=/secure/sign-up`
+`NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/`
+`NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/`
 
 `DATABASE_URL=`
 
@@ -100,7 +100,7 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/`
 `NEXT_PUBLIC_LIVEKIT_URL=`
 
 After deploying add another variable:
-`NEXT_PUBLIC_SITE_URL=` `Your deployment URL`
+`NEXT_PUBLIC_SITE_URL= Your deployment URL`
 
 
 ## Deployment
